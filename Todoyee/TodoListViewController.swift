@@ -10,11 +10,16 @@ import UIKit
 // Get lot of stuff for free by subclassing UITableViewController, change the superclass here
 class TodoListViewController: UITableViewController {
     
-    let itemArray = ["Find Mike!", "Buy Eggos!", "Destroy Demogorgon!"]
+    var itemArray = ["Find Mike!", "Buy Eggos!", "Destroy Demogorgon!"]
+    
+    let defaults = UserDefaults.standard
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
+       
+        if let items = defaults.array(forKey: "TodoListArray") as? [String] {
+            itemArray = items
+            }
     }
 
     // MARK: - TableView Datasource Methods
@@ -39,8 +44,7 @@ class TodoListViewController: UITableViewController {
         // Access to individual items with indexPath.row
          print(itemArray[indexPath.row])
         
-       
-        
+       // Condition to add and remove checkmark
         if  tableView.cellForRow(at: indexPath)?.accessoryType == .checkmark {
              tableView.cellForRow(at: indexPath)?.accessoryType = .none
         } else {
@@ -54,6 +58,36 @@ class TodoListViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
        
+    }
+    // MARK: Add New Item with UIAlertController
+    
+    
+    @IBAction func AddButttonPressed(_ sender: UIBarButtonItem) {
+        
+        // Create a local variable
+        var textField = UITextField()
+        
+        let alert = UIAlertController(title: "Add New Item", message: "", preferredStyle: .alert)
+        
+        let action = UIAlertAction(title: "Add Item", style: .default) { (action) in
+            // What will happen once the user clicks the "add new item" button on UIalert
+            self.itemArray.append(textField.text!)
+            // This magic method adds new item to list
+            
+            self.defaults.set(self.itemArray, forKey: "TodoListArray")
+            self.tableView.reloadData()
+        }
+        
+        alert.addTextField { (alertTextField) in
+            alertTextField.placeholder = "Create New Item"
+            // Extend the scope of alertTextField to whole AddButtonPressed
+            textField = alertTextField
+           
+          
+        }
+        
+        alert.addAction(action)
+        present(alert, animated: true, completion: nil)
     }
     
     
