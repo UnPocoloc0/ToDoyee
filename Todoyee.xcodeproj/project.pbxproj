@@ -14,6 +14,7 @@
 		32557CC1297D2CE3005CE561 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 32557CBF297D2CE3005CE561 /* LaunchScreen.storyboard */; };
 		32557CCC297D2CE4005CE561 /* TodoyeeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32557CCB297D2CE4005CE561 /* TodoyeeTests.swift */; };
 		32557CD7297D2CE4005CE561 /* TodoyeeUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32557CD6297D2CE4005CE561 /* TodoyeeUITests.swift */; };
+		3275DECF297ED7580090B8D2 /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3275DECE297ED7580090B8D2 /* Item.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -47,6 +48,8 @@
 		32557CD2297D2CE4005CE561 /* TodoyeeUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TodoyeeUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		32557CD6297D2CE4005CE561 /* TodoyeeUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoyeeUITests.swift; sourceTree = "<group>"; };
 		32557CD8297D2CE4005CE561 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		3275DECD297EC7AE0090B8D2 /* MyPlayground.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = MyPlayground.playground; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
+		3275DECE297ED7580090B8D2 /* Item.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Item.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -98,10 +101,10 @@
 			isa = PBXGroup;
 			children = (
 				32557CB6297D2CE1005CE561 /* AppDelegate.swift */,
-				32557CB8297D2CE1005CE561 /* TodoListViewController.swift */,
-				32557CBA297D2CE1005CE561 /* Main.storyboard */,
-				32557CBD297D2CE3005CE561 /* Assets.xcassets */,
-				32557CBF297D2CE3005CE561 /* LaunchScreen.storyboard */,
+				3275DED1297ED7FD0090B8D2 /* Controllers */,
+				3275DED0297ED7DD0090B8D2 /* Data model */,
+				3275DED2297ED8250090B8D2 /* Views */,
+				3275DED3297ED8440090B8D2 /* Supporting Files */,
 				32557CC2297D2CE3005CE561 /* Info.plist */,
 			);
 			path = Todoyee;
@@ -123,6 +126,40 @@
 				32557CD8297D2CE4005CE561 /* Info.plist */,
 			);
 			path = TodoyeeUITests;
+			sourceTree = "<group>";
+		};
+		3275DED0297ED7DD0090B8D2 /* Data model */ = {
+			isa = PBXGroup;
+			children = (
+				3275DECE297ED7580090B8D2 /* Item.swift */,
+			);
+			path = "Data model";
+			sourceTree = "<group>";
+		};
+		3275DED1297ED7FD0090B8D2 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				32557CB8297D2CE1005CE561 /* TodoListViewController.swift */,
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
+		3275DED2297ED8250090B8D2 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				32557CBA297D2CE1005CE561 /* Main.storyboard */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		3275DED3297ED8440090B8D2 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				3275DECD297EC7AE0090B8D2 /* MyPlayground.playground */,
+				32557CBD297D2CE3005CE561 /* Assets.xcassets */,
+				32557CBF297D2CE3005CE561 /* LaunchScreen.storyboard */,
+			);
+			path = "Supporting Files";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -257,6 +294,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				32557CB9297D2CE1005CE561 /* TodoListViewController.swift in Sources */,
+				3275DECF297ED7580090B8D2 /* Item.swift in Sources */,
 				32557CB7297D2CE1005CE561 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -432,8 +470,9 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = CKP83Y2XL6;
+				DEVELOPMENT_TEAM = 6XAU4GDHU2;
 				INFOPLIST_FILE = Todoyee/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -442,6 +481,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.Simo-Loikkanen.Todoyee";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -451,8 +491,9 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = CKP83Y2XL6;
+				DEVELOPMENT_TEAM = 6XAU4GDHU2;
 				INFOPLIST_FILE = Todoyee/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -461,6 +502,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.Simo-Loikkanen.Todoyee";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
