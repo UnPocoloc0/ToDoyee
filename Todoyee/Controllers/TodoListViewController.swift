@@ -15,7 +15,7 @@ class ToDoListViewController: UITableViewController {
     
     let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     
-    let dataFilePath = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first?.appendingPathComponent("Items.plist")
+    
     
     //let defaults = userDefaults.standard
     
@@ -26,7 +26,9 @@ class ToDoListViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-         print(dataFilePath)
+       print(FileManager.default.urls(for: .documentDirectory, in: .userDomainMask))
+        
+        
         
 //        loadItems()
 
