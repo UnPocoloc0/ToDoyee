@@ -14,14 +14,7 @@ class ToDoListViewController: UITableViewController {
     var itemArray = [Item]()
     
     let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
-    
-    
-    
-    //let defaults = userDefaults.standard
-    
-    
-    
-    //print(dataFilePath)
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -30,7 +23,7 @@ class ToDoListViewController: UITableViewController {
         
         
         
-//        loadItems()
+        loadItems()
 
         // Value is custom item object
 //        if let items = defaults.array(forKey: "TodoListArray") as? [Item] {
@@ -119,21 +112,8 @@ class ToDoListViewController: UITableViewController {
             
             self.itemArray.append(newItem)
             // This magic method adds new item to list
+             self.saveItems()
             
-//            let encoder = PropertyListEncoder()
-//
-//            do {
-//            let data = try encoder.encode(self.itemArray)
-//                try data.write(to: self.dataFilePath!)
-//            } catch {
-//                print("Error encoding item array, \(error)")
-//
-//            }
-            self.saveItems()
-            
-            // This line causes problems with storing with defaults:
-           // self.defaults.set(self.itemArray, forKey: "TodoListArray")
-           // self.tableView.reloadData()
         }
         
         alert.addTextField { (alertTextField) in
@@ -163,21 +143,18 @@ class ToDoListViewController: UITableViewController {
         self.tableView.reloadData()
     }
     
-//    func loadItems() {
-//        // When needing take the data in the form of array of items
-//        // Use optional binding to safely unwrap
-//        if let data = try? Data(contentsOf: dataFilePath!) {
-//        let decoder = PropertyListDecoder()
-//        do {
-//            // What is the datatype to decode, tell swift the datatype (array of items)
-//          itemArray = try decoder.decode([Item].self, from: data)
-//            // Catch errors
-//        } catch {
-//            print("Error decoding item array, \(error)")
-//        }
-//        self.tableView.reloadData()
-//
-//    }
-//
-//}
+    // Pulls back everything that is in the persistent container
+    func loadItems() {
+        // Must specify the datatype here
+        let request: NSFetchRequest<Item> = Item.fetchRequest()
+        do {
+            // Save the result to itemArray
+        itemArray = try context.fetch(request)
+            
+        } catch {
+            print("Error fetching data from context \(error)")
+        }
+        
+
+}
 }
