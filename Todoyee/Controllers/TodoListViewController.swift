@@ -68,10 +68,26 @@ class ToDoListViewController: UITableViewController {
         // Access to individual items with indexPath.row
          print(itemArray[indexPath.row])
         
-        //Short way using opposite, true becomes false and vice versa:
-    itemArray[indexPath.row].done = !itemArray[indexPath.row].done
+        
+        // Remove item from permanent storage
+        // Order of these methods are important, otherwise index out of range
+        context.delete(itemArray[indexPath.row])
+        
+        // Update itemArray, does nothing to coreData
+        //Remove item from array
+        itemArray.remove(at: indexPath.row)
+        
+     
+        //Short way using opposite, true becomes false and vice versa: Togglin' on & off
+        // This updates the current row. Row is NSMangedobject, tap it's done property
+        // Use checkmark or delete row, which is better user experience?
+        
+    // itemArray[indexPath.row].done = !itemArray[indexPath.row].done
+       // Deleting is not enough, must always save the current status
         
         saveItems()
+        
+        
         // Long way:
 //        // Toggling on off
 //        if itemArray[indexPath.row].done == false {
@@ -139,7 +155,7 @@ class ToDoListViewController: UITableViewController {
            print("Error saving context \(error)")
             
         }
-        // Forces tableView to call datasoucre again
+        // Forces tableView to call datasoucre again, show the latest data
         self.tableView.reloadData()
     }
     
