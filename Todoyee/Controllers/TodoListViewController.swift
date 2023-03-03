@@ -22,6 +22,10 @@ class ToDoListViewController: UITableViewController {
        print(FileManager.default.urls(for: .documentDirectory, in: .userDomainMask))
         
         
+        loadItems()
+
+        
+        
         
         loadItems()
 
@@ -160,9 +164,14 @@ class ToDoListViewController: UITableViewController {
     }
     
     // Pulls back everything that is in the persistent container
-    func loadItems() {
+    // Request is the parameter, return is array of items
+    // Use internal name inside this block of code
+    
+    // Use the default value Item.fetchRequest. LoadItems has a default request.
+    func loadItems(with request: NSFetchRequest<Item> = Item.fetchRequest()) {
+        
         // Must specify the datatype here
-        let request: NSFetchRequest<Item> = Item.fetchRequest()
+        
         do {
             // Save the result to itemArray
         itemArray = try context.fetch(request)
@@ -173,4 +182,60 @@ class ToDoListViewController: UITableViewController {
         
 
 }
+   
+    
+}
+
+// MARK: Search bar methods
+// Modularize the code, easier to navigate and debug. Otherwise base class grows gigantic.
+extension ToDoListViewController: UISearchBarDelegate {
+    
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        // When user taps searchbar, function is fired inside the braces
+        let request: NSFetchRequest<Item> = Item.fetchRequest()
+       
+        // NSPredicate is how data should be filtered. cd means case and diacritic insensitive
+        request.predicate = NSPredicate(format: "title CONTAINS[cd] %@", searchBar.text!)
+        
+        
+        // Title should contain what is inthe search bar, ascending alphabetical order
+        //let sortDescriptor = NSSortDescriptor(key: "title", ascending: true)
+        
+        // Needs the square brackets on the RH side to match code below
+        request.sortDescriptors = [NSSortDescriptor(key: "title", ascending: true)]
+        
+        // Plural on the other side, singular on the other
+//        request.sortDescriptors = [sortDescriptor]
+        
+        // Use the external parameter when calling the function. Code is almost almost plain english
+        
+        loadItems(with: request)
+//        do {
+//            // Save the result to itemArray
+//            itemArray = try context.fetch(request)
+//
+//        } catch {
+//            print("Error fetching data from context \(error)")
+//        }
+        
+//        tableView.reloadData()
+//        // Prints what the user has entered, check it along the way
+//        print(searchBar.text!)
+    }
+    // Before refactoring, check if the current code works
+    // Triggers the delegate method when text inside searchbar has changed
+    // Every letter triggers this method, also clear field triggers this
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        // Only when there's text in the field if statement triggers
+        if searchBar.text?.count == 0 {
+            loadItems()
+            
+            
+            DispatchQueue.main.async {
+                // Hide the keyboard and go to original state
+                searchBar.resignFirstResponder()
+            }
+           
+        }
+    }
 }
